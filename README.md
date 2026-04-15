@@ -1,102 +1,175 @@
-<div id="top">
-
-<div align="left">
-
-# PYTHON_JOURNEY
-
-<em>Trao quyền đổi mới thông qua việc làm chủ dữ liệu một cách liền mạch</em>
-
-<img src="https://img.shields.io/github/last-commit/hv2a4/Python_Journey?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-<img src="https://img.shields.io/github/languages/top/hv2a4/Python_Journey?style=flat&color=0080ff" alt="repo-top-language">
-<img src="https://img.shields.io/github/languages/count/hv2a4/Python_Journey?style=flat&color=0080ff" alt="repo-language-count">
-
-<em>Được xây dựng với các công cụ và công nghệ:</em>
-
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
-
-</div>
-<br>
-
----
-
-## Mục lục
-
-- [Tổng quan](#tổng-quan)
-- [Bắt đầu](#bắt-đầu)
-  - [Yêu cầu](#yêu-cầu)
-  - [Cài đặt](#cài-đặt)
-  - [Cách sử dụng](#cách-sử-dụng)
-  - [Kiểm thử](#kiểm-thử)
-
----
+# Tổng quan và Mục tiêu học tập
 
 ## Tổng quan
 
-Python_Journey là một bộ công cụ hướng đến lập trình viên, giúp đơn giản hóa việc mô hình hóa và quản lý các thực thể dữ liệu cốt lõi như sách và sản phẩm. Các lớp được thiết kế theo hướng module, đóng gói thuộc tính, cung cấp cơ chế kiểm tra dữ liệu và hỗ trợ cập nhật linh hoạt, phù hợp cho các hệ thống quản lý thư viện, kho hàng hoặc danh mục sản phẩm.
+Repository này mô tả một hành trình học lập trình hướng đối tượng (OOP) trong Python theo từng bước. Nội dung tập trung vào:
 
-**Tại sao nên dùng Python_Journey?**
+- Định nghĩa class
+- Khởi tạo object
+- Đóng gói dữ liệu bằng `property`
+- Thực hiện logic nghiệp vụ đơn giản với các model như `Product` và `Book`
 
-Dự án này giúp lập trình viên xây dựng các mô hình dữ liệu đáng tin cậy và dễ bảo trì. Các tính năng chính bao gồm:
-
-- 🛠️ **Đóng gói dữ liệu:** Các class cho sách và sản phẩm giúp tổ chức thuộc tính và hành vi rõ ràng.
-- 📊 **Hiển thị & cập nhật:** Tích hợp sẵn các phương thức để hiển thị thông tin và chỉnh sửa dữ liệu dễ dàng.
-- 🔒 **Kiểm tra dữ liệu:** Sử dụng property setter để đảm bảo tính hợp lệ và tránh dữ liệu sai.
-- ⚙️ **Thiết kế module:** Dễ dàng tích hợp vào các hệ thống lớn hơn để mở rộng.
-- 🚀 **Tập trung chức năng cốt lõi:** Tối ưu các tác vụ phổ biến như quản lý kho và danh mục.
+Code được phát triển dần từ việc truy cập thuộc tính trực tiếp → sang cách an toàn hơn bằng getter, setter và `@property`.
 
 ---
 
-## Bắt đầu
+## Lộ trình học tổng thể
 
-### Yêu cầu
+### Tiến trình học
 
-Dự án yêu cầu các thành phần sau:
+```mermaid
+graph TD
+  A["Day 1: Class cơ bản"] --> B["Day 2: Đóng gói"]
+  B --> C["Day 2: Validation"]
+  C --> D["Day 2: Cập nhật trạng thái"]
+  D --> E["Day 3: Model Book"]
+  E --> F["test.py: Luyện tập"]
+```
 
-- **Ngôn ngữ lập trình:** Python
-- **Trình quản lý gói:** Conda
+### Nội dung từng ngày:
+
+- **Day 1**
+  - Học cách tạo class (`Product`)
+  - `__init__`
+  - Thuộc tính instance
+  - Method cơ bản
+
+- **Day 2**
+  - Đóng gói với `@property`
+  - Validation dữ liệu
+  - Method cập nhật trạng thái (`update_stock`)
+
+- **Day 3**
+  - Áp dụng lại với class `Book`
+  - Kiểm tra dữ liệu (`page_count`)
+  - Cập nhật số trang
+
+- **test.py**
+  - Luyện tập lại `Book`
+  - Thay đổi message lỗi
 
 ---
 
-### Cài đặt
+## Model chính
 
-1. Clone repository:
+### 1. Product (Day 1 & Day 2)
 
-```sh
-git clone https://github.com/hv2a4/Python_Journey
-```
+#### Day 1 – Cơ bản
 
-2. Di chuyển vào thư mục project:
+- Thuộc tính public:
+  - `product_id`
+  - `name`
+  - `price`
+  - `stock_quantity`
 
-```sh
-cd Python_Journey
-```
+- Method:
+  - `display_info()`
 
-3. Cài đặt dependencies:
-
-```sh
-conda env create -f conda.yml
-```
-
----
-
-### Cách sử dụng
-
-```sh
-conda activate {venv}
-python {entrypoint}
+👉 Truy cập trực tiếp:
+```python
+laptop.price
 ```
 
 ---
 
-### Kiểm thử
+#### Day 2 – Đóng gói & Validation
 
-```sh
-conda activate {venv}
-pytest
+- Sử dụng:
+  - `@property`
+  - setter
+
+- Validation:
+```python
+if value < 0:
+    raise ValueError("Không hợp lệ")
+```
+
+- Thuộc tính private:
+```python
+self._price
+self._stock_quantity
+```
+
+- Method mới:
+```python
+update_stock()
+```
+
+👉 Cập nhật:
+```python
+self.stock_quantity = self.stock_quantity + change
 ```
 
 ---
 
-<div align="left"><a href="#top">⬆ Quay lại đầu trang</a></div>
+### 2. Book (Day 3 & test.py)
+
+#### Thuộc tính:
+
+- `book_id`
+- `title`
+- `author`
+- `page_count`
+
+#### Validation:
+
+```python
+if not isinstance(value, int) or value <= 0:
+    raise ValueError(...)
+```
+
+#### Method:
+
+- `display_book_info()`
+- `add_pages()`
+- `remove_pages()`
+
+---
+
+## Luồng hoạt động
+
+### Product
+
+1. Tạo object
+2. Hiển thị thông tin
+3. Cập nhật số lượng
+4. Validate dữ liệu
+
+---
+
+### Book
+
+1. Tạo sách
+2. Thêm trang
+3. Giảm trang
+4. Hiển thị
+
+---
+
+## Mục tiêu học được
+
+| Nội dung | Ý nghĩa |
+|----------|--------|
+| Class & `__init__` | Hiểu cách tạo object |
+| Method | Gắn hành vi vào object |
+| Property | Ẩn dữ liệu |
+| Validation | Tránh dữ liệu sai |
+| Update state | Thay đổi dữ liệu an toàn |
+| Try/except | Xử lý lỗi |
+
+---
+
+## Kết luận
+
+Project này là một lộ trình học OOP Python rất rõ ràng:
+
+- Từ cơ bản → nâng cao dần
+- Từ code “thoáng” → code “an toàn”
+- Tập trung vào:
+  - Đóng gói (Encapsulation)
+  - Validation
+  - Clean code
+
+`Product` và `Book` là 2 ví dụ giúp bạn hiểu cách thiết kế model trong thực tế.
 
 ---
