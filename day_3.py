@@ -24,19 +24,17 @@ class Book:
         print(f"Số trang: {self.page_count}")
         print(f"---------------------")
 
-    @page_count.setter
     def add_pages(self, extra_pages):
-        newValue = self.page_count + extra_pages
-        if newValue <= 0:
-            raise ValueError("Số trang phải là số nguyên lớn hơn 0")
-        self.page_count = newValue
+        self.page_count = self.page_count + extra_pages
+        print(f"Đã cộng thêm {extra_pages} trang cho sách '{self.title}'")
 
-    @page_count.setter
     def remove_pages(self, remove_pages):
-        newValue = self.page_count - remove_pages
-        self.page_count = newValue
+        self.page_count = self.page_count - remove_pages
+        print(f"Đã trừ bớt {remove_pages} trang cho sách '{self.title}'")
 
 
-sach_1 = Book("B001", "Dế Mèn Phiêu Lưu Ký", "Tô Hoài", 300)
-sach_1.remove_pages = 50
-sach_1.display_book_info()
+# Thử gọi phương thức
+sach1 = Book("B001", "Dế Mèn Phiêu Lưu Ký", "Tô Hoài", 300)
+sach1.add_pages(20)
+sach1.remove_pages(10)
+sach1.display_book_info()
