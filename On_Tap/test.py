@@ -1,84 +1,52 @@
-class Bicycle:
-    def __init__(self, bike_id, bike_type):
-        self.bike_id = bike_id
-        self.bike_type = bike_type
-        self.is_available = True
-
-    def rent(self):
-        if not self.is_available:
-            raise Exception("Xe đã được thuê")
-        self.is_available = False
-
-    def return_bike(self):
-        self.is_available = True
+from abc import ABC, abstractmethod
 
 
-class Customer:
-    def __init__(self, name, phone):
+class IdolGioiTre(ABC):
+    def __init__(self, name, age, appearance):
         self.name = name
-        self.phone = phone
+        self.age = age
+        self.__appearance = appearance
+
+    def get_appearance(self):
+        return self.__appearance
+
+    def set_appearance(self, value):
+        if not value:
+            raise ValueError("Không được rỗng")
+        self.__appearance = value
+
+    @abstractmethod
+    def live_stream(self):
+        pass
+
+    @abstractmethod
+    def signature_quote(self):
+        pass
 
 
-class Payment:
-    def pay(self, amount):
-        raise NotImplementedError
+class KhaBanh(IdolGioiTre):
+    def __init__(self, name, age, appearance, location):
+        super().__init__(name, age, appearance)
+        self.location = location
+
+    def live_stream(self):
+        print("Livestream tại", self.location)
+
+    def signature_quote(self):
+        print("Ảo thật đấy!")
 
 
-class CashPayment(Payment):
-    def pay(self, amount):
-        print(f"Thanh toán tiền mặt: {amount}")
+class TienBip(IdolGioiTre):
+    def live_stream(self):
+        print("Livestream chill")
+
+    def signature_quote(self):
+        print("Còn cái nịt!")
 
 
-class VNPayPayment(Payment):
-    def pay(self, amount):
-        print(f"Thanh toán qua VNPay: {amount}")
+# Polymorphism
+idols = [KhaBanh("Khá", 30, "Đầu moi", "Trong tù"), TienBip("Tiến", 28, "Cool")]
 
-
-class RentalOrder:
-    def __init__(self, customer, payment):
-        self.customer = customer
-        self.payment = payment
-        self.bicycles = []
-        self.hours = 0
-
-    def add_bicycle(self, bike):
-        if not bike.is_available:
-            raise Exception("Xe không khả dụng")
-        self.bicycles.append(bike)
-
-    def set_hours(self, hours):
-        self.hours = hours
-
-    def calculate_total(self):
-        price_per_hour = 10000
-        return len(self.bicycles) * self.hours * price_per_hour
-
-    def checkout(self):
-        total = self.calculate_total()
-
-        # thuê xe
-        for bike in self.bicycles:
-            bike.rent()
-
-        # thanh toán (đa hình)
-        self.payment.pay(total)
-
-        print("Thuê xe thành công!")
-
-
-# tạo dữ liệu
-bike1 = Bicycle(1, "mountain")
-bike2 = Bicycle(2, "road")
-
-customer = Customer("Vũ", "0123456789")
-
-payment = VNPayPayment()  # đổi sang CashPayment cũng được
-
-# tạo đơn thuê
-order = RentalOrder(customer, payment)
-
-order.add_bicycle(bike1)
-order.add_bicycle(bike2)
-order.set_hours(3)
-
-order.checkout()
+for idol in idols:
+    idol.live_stream()
+    idol.signature_quote()

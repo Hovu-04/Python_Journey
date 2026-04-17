@@ -1,49 +1,67 @@
+# =========================================
+# ! ACCOUNT - DOMAIN MODEL
+# Quản lý số dư với encapsulation qua property
+# =========================================
 class Account:
     def __init__(self, owner, balance):
         self.owner = owner
-        self.balance = balance  # Gọi setter kiểm tra ngay khi khởi tạo
 
+        # * Gọi setter ngay từ đầu để validate
+        self.balance = balance
+
+    # =========================================
+    # * PROPERTY: balance (read-only từ bên ngoài)
+    # =========================================
     @property
     def balance(self):
         return self._balance
 
     @balance.setter
     def balance(self, value):
-        # Sửa điều kiện: chỉ chặn số âm, cho phép số dư = 0
+        # ! Rule cốt lõi: Không cho số dư âm
         if value < 0:
             raise ValueError("Số tiền không được là số âm!")
         self._balance = value
 
+    # =========================================
+    # * NẠP TIỀN (business logic)
+    # =========================================
     def recharge(self, amount):
-        """Nạp tiền vào tài khoản"""
-        # Bước 1: Kiểm tra số tiền nạp vào phải dương (Logic nghiệp vụ)
         if amount <= 0:
-            print(f"❌ Lỗi: Số tiền nạp ({amount}) phải lớn hơn 0!")
-            return  # Thoát hàm ngay, không chạy dòng phía dưới
+            # ⚠️ Không nên dùng print cho lỗi (chỉ demo)
+            print(f"❌ Lỗi: Số tiền nạp ({amount}) phải > 0!")
+            return
 
-        # Bước 2: Cập nhật thông qua setter
+        # * Update qua setter để reuse validation
         self.balance = self.balance + amount
-        print(f"✅ Đã nạp thành công {amount:,} VND. Số dư mới: {self.balance:,} VND")
 
+        print(f"✅ Nạp {amount:,} VND | Số dư: {self.balance:,} VND")
+
+    # =========================================
+    # * RÚT TIỀN (business logic)
+    # =========================================
     def withdraw(self, amount):
-        """Rút tiền từ tài khoản"""
-        print(f"--- Đang thực hiện rút {amount:,} VND ---")
+        if amount <= 0:
+            raise ValueError("Số tiền rút phải > 0")
+
+        # ! Delegation cho setter kiểm soát âm
         try:
-            # Gọi setter. Nếu (balance - amount) < 0 -> Setter ném lỗi
             self.balance = self.balance - amount
-            print(f"✅ Rút thành công. Số dư còn: {self.balance:,} VND")
         except ValueError:
-            print(f"❌ Thất bại: Số dư không đủ để rút {amount:,} VND!")
+            # * Convert technical error -> business message
+            print(f"❌ Không đủ tiền để rút {amount:,} VND")
+            return
+
+        print(f"✅ Rút {amount:,} VND | Còn: {self.balance:,} VND")
 
 
-# Kiểm tra các trường hợp:
-print("--- Kiểm tra rút tiền hợp lệ ---")
-acc = Account("Bạn", 2000000)
-acc.recharge(500000)
+# =========================================
+# ! TEST FLOW
+# =========================================
+acc = Account("Bạn", 2_000_000)
 
+# * Case hợp lệ
+acc.recharge(500_000)
 
-print("\n--- Kiểm tra rút quá số dư ---")
-try:
-    acc.withdraw(2000000)  # Cố rút 2tr từ tài khoản còn 1.5tr
-except ValueError as e:
-    print(f"Bị chặn! Lỗi: {e}")
+# * Case vượt số dư
+acc.withdraw(2_000_000)

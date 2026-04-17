@@ -1,100 +1,100 @@
+# =========================================
+# ! PRODUCT - DOMAIN MODEL
+# Quản lý sản phẩm + tồn kho + giá
+# =========================================
 class Product:
-    # Phương thức __init__ để khởi tạo đối tượng
     def __init__(self, product_id, name, price, stock_quantity):
-        # Gán giá trị cho các thuộc tính của đối tượng sử dụng 'self'
+        # * STEP 1: Khởi tạo thông tin cơ bản
         self.product_id = product_id
         self.name = name
+
+        # * STEP 2: Gán giá và tồn kho thông qua setter
+        # → đảm bảo dữ liệu hợp lệ ngay từ đầu
         self.price = price
         self.stock_quantity = stock_quantity
 
-    # --- Getter cho price ---
+    # =========================================
+    # * PRICE FLOW
+    # =========================================
     @property
     def price(self):
-        """Getter cho thuộc tính price"""
-        # Lấy giá trị đã được lưu trữ (thường là trong một thuộc tính private có tên khác)
+        # * STEP 3: Khi truy cập → trả về giá đã validate
         return self._price
 
-    # --- Setter cho price ---
     @price.setter
     def price(self, value):
-        """Setter cho thuộc tính price, kiểm tra giá trị trước khi gán"""
+        # * STEP 4: Khi gán → kiểm tra hợp lệ
         if value < 0:
-            # Nếu giá trị không hợp lệ, ném ra một lỗi
-            raise ValueError("Giá sản phẩm không thể là số âm.")
-        # Nếu giá trị hợp lệ, gán vào thuộc tính private
+            raise ValueError("Giá sản phẩm không thể âm")
         self._price = value
 
-    # --- Getter cho stock_quantity ---
+    # =========================================
+    # * STOCK FLOW
+    # =========================================
     @property
     def stock_quantity(self):
-        """Getter cho thuộc tính stock_quantity"""
+        # * STEP 5: Lấy tồn kho hiện tại
         return self._stock_quantity
 
-    # --- Setter cho stock_quantity ---
     @stock_quantity.setter
     def stock_quantity(self, value):
+        # * STEP 6: Kiểm tra tồn kho không âm
         if value < 0:
-            raise ValueError("Số lượng tồn kho không thể là số âm.")
+            raise ValueError("Tồn kho không thể âm")
         self._stock_quantity = value
 
-    # Phương thức display_info - vẫn tương tự
-    def display_info(self):
-        print(f"--- Thông tin Sản phẩm ---")
-        print(f"Mã SP: {self.product_id}")
-        print(f"Tên SP: {self.name}")
-        # Khi truy cập self.price ở đây, nó sẽ gọi getter @property price
-        print(f"Giá: {self.price:.2f} VNĐ")
-        print(
-            f"Số lượng tồn: {self.stock_quantity}"
-        )  # Truy cập stock_quantity cũng qua getter
-        print(f"------------------------")
-
-    # --- Thêm phương thức mới để kiểm tra đóng gói ---
+    # =========================================
+    # ! BUSINESS FLOW: CẬP NHẬT KHO
+    # =========================================
     def update_stock(self, quantity_change):
         """
-        Cập nhật số lượng tồn kho.
-        quantity_change có thể là số dương (thêm hàng) hoặc số âm (bán hàng).
-        Sử dụng setter để đảm bảo số lượng luôn hợp lệ.
+        FLOW:
+        1. Nhận số lượng thay đổi (có thể + hoặc -)
+        2. Tính tồn kho mới
+        3. Validate business rule (không được âm)
+        4. Gán lại qua setter → đảm bảo consistency
         """
-        # setter của stock_quantity sẽ tự động kiểm tra giá trị mới
-        self.stock_quantity = self.stock_quantity + quantity_change
+
+        # * STEP 7: Tính tồn kho mới
+        new_quantity = self.stock_quantity + quantity_change
+
+        # * STEP 8: Validate nghiệp vụ (không bán quá số lượng)
+        if new_quantity < 0:
+            raise ValueError("Không đủ hàng trong kho")
+
+        # * STEP 9: Gán qua setter (double-check validation)
+        self.stock_quantity = new_quantity
+
+        print(f"[{self.name}] Tồn kho mới: {self.stock_quantity}")
+
+    # =========================================
+    # * DISPLAY FLOW (demo)
+    # =========================================
+    def display_info(self):
+        # * STEP 10: Truy cập qua getter để đảm bảo dữ liệu hợp lệ
         print(
-            f"Đã cập nhật số lượng tồn kho cho '{self.name}'. Số lượng mới: {self.stock_quantity}"
+            f"{self.product_id} | {self.name} | {self.price:,.0f} VND | SL: {self.stock_quantity}"
         )
 
 
-# --- Phần thực hành ---
-# 1. Tạo sản phẩm với giá/số lượng hợp lệ
-laptop = Product("LAP001", "Laptop Dell XPS 13", 25000000, 10)
+# =========================================
+# ! TEST FLOW - MÔ PHỎNG THỰC TẾ
+# =========================================
+
+# STEP A: Tạo sản phẩm → chạy qua __init__ → setter validate
+laptop = Product("LAP001", "Laptop Dell XPS 13", 25_000_000, 10)
+
+# STEP B: Hiển thị thông tin ban đầu
 laptop.display_info()
 
-# 2. Thử cập nhật số lượng bằng phương thức update_stock
-laptop.update_stock(-3)  # Bán 3 cái
+# STEP C: Bán hàng (giảm tồn kho)
+laptop.update_stock(-3)
+
+# STEP D: Nhập hàng (tăng tồn kho)
+laptop.update_stock(5)
+
+# STEP E: Thay đổi giá (qua setter)
+laptop.price = 23_500_000
+
+# STEP F: Hiển thị lại trạng thái cuối
 laptop.display_info()
-
-laptop.update_stock(5)  # Nhập thêm 5 cái
-laptop.display_info()
-
-# 3. Thử thay đổi giá trực tiếp thông qua setter (sử dụng cú pháp truy cập thuộc tính bình thường)
-print("\nThử thay đổi giá sản phẩm:")
-laptop.price = 23500000  # Giá mới, hợp lệ
-laptop.display_info()
-
-# 4. Thử gán giá trị không hợp lệ để xem lỗi
-print("\nThử gán giá không hợp lệ:")
-try:
-    laptop.price = -5000000  # Giá âm
-except ValueError as e:
-    print(f"Lỗi: {e}")
-
-try:
-    laptop.stock_quantity = -2  # Số lượng tồn âm
-except ValueError as e:
-    print(f"Lỗi: {e}")
-
-# Thử thay đổi giá trị không hợp lệ thông qua update_stock
-print("\nThử cập nhật số lượng không hợp lệ:")
-try:
-    laptop.update_stock(-15)  # Cố gắng bán nhiều hơn số lượng có
-except ValueError as e:
-    print(f"Lỗi: {e}")
