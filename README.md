@@ -27,19 +27,35 @@ Day 1 → Day 2 → Day 3 → Day 4 → Day 5 → Day 6 → On_Tap (Tổng hợp
 
 ```
 📁 Python_Journey/
-├── day_1.py           # ✏️ Class cơ bản: Product
-├── day_2.py           # 🔒 Encapsulation: @property, validation
-├── day_3.py           # 📖 Áp dụng: Book model
-├── day_4.py           # 🏦 Inheritance: Account → SavingsAccount, CheckingAccount
-├── day_5.py           # 🏦 Inheritance nâng cao: BankAccount + Template Method
-├── day_6.py           # 🚲 Abstract Class + Polymorphism: PhuongTienThue
-├── On_Tap/            # 📝 Luyện tập tổng hợp
-│   ├── test.py
-│   ├── xe_dap.py
-│   ├── ngan_hang_ke_thua.py
-│   ├── ket_thua_va_dong_goi.py
-│   └── he_thong_phuong_tien.py
-└── README.md          # 📖 Hướng dẫn này
+│
+├── 📁 01_Basics/                    # ✏️ Nền tảng Python (6 ngày)
+│   ├── day_1.py                    # Class cơ bản: Product
+│   ├── day_2.py                    # Encapsulation: @property, validation
+│   ├── day_3.py                    # Áp dụng: Book model
+│   ├── day_4.py                    # Inheritance: Account → SavingsAccount, CheckingAccount
+│   ├── day_5.py                    # Inheritance nâng cao: BankAccount + Template Method
+│   └── day_6.py                    # Abstract Class + Polymorphism: PhuongTienThue
+│
+├── 📁 02_OOP_Basics/                # 🎓 OOP Cấp 1: Khái niệm cơ bản
+│   ├── 01_sinh_vien.py             # Class Student: Encapsulation cơ bản
+│   ├── 02_hinh_chu_nhat.py         # Rectangle: @property, tính toán
+│   ├── 03_nhanvien.py              # Employee: Attributes & Methods
+│   └── 04_xe_may.py                # Motorcycle: Class design
+│
+├── 📁 03_OOP_Intermediate/          # 📈 OOP Cấp 2: Kỹ thuật nâng cao
+│   ├── 01_quan_ly_cua_hang_sach.py # BookStore: Encapsulation + Validation
+│   ├── 02_quan_ly_thu_vien.py      # Library Management: Inheritance
+│   ├── 03_quan_ly_luong.py         # Salary Management: Polymorphism
+│   └── 04_bai_tap_doan_so.py       # Number Range: Abstract Class
+│
+├── 📁 04_Practice/                  # 🔥 Ôn tập & Thực hành tổng hợp
+│   ├── 01_he_thong_phuong_tien.py  # Transport System: Multiple Inheritance
+│   ├── 02_ket_thua_va_dong_goi.py  # Inheritance & Encapsulation: Combined
+│   ├── 03_ngan_hang_ke_thua.py     # Bank System: Complex Inheritance
+│   ├── 04_quan_ly_nhan_vien_crud.py # Employee CRUD: Full Management System
+│   └── 05_xe_dap.py                # Bicycle System: OOP Design Pattern
+│
+└── README.md                        # 📖 Hướng dẫn này
 ```
 
 ---
