@@ -310,6 +310,24 @@ for xe in danh_sach_xe:
 
 ---
 
+## 📝 Phần Bài Tập: OOP_BaiTap
+
+**Mục đích**: Bài tập thực hành OOP theo cấp độ từ cơ bản đến trung bình
+
+### **Cap1_CoBan/** (Cấp 1: Cơ bản)
+- **cap1_01_sinh_vien.py**: Quản lý thông tin sinh viên
+- **cap1_02_hinh_chu_nhat.py**: Tính toán hình chữ nhật
+- **cap1_03_nhanvien.py**: Quản lý nhân viên
+- **cap1_03_xemay.py**: Quản lý xe máy
+
+### **Cap2_TrungBinh/** (Cấp 2: Trung bình)
+- **cap2_01_quan_ly_cua_hang_sach.py**: Quản lý cửa hàng sách
+- **cap2_02_quan_ly_thu_vien.py**: Quản lý thư viện
+- **cap2_03_quan_ly_luong.py**: Quản lý lương nhân viên
+- **cap2_04_bai_tap_doan_so.py**: Bài tập đoạn số
+
+---
+
 ## 🎓 Những Concept Được Học
 
 | Tuần | Concept | File |
@@ -321,6 +339,7 @@ for xe in danh_sach_xe:
 | 5 | Template Method | day_5.py |
 | 6 | Polymorphism & ABC | day_6.py |
 | Ôn | Tổng hợp | On_Tap/ |
+| BT | Bài tập | OOP_BaiTap/ |
 
 ---
 
@@ -344,6 +363,15 @@ cd On_Tap
 python test.py
 python ngan_hang_ke_thua.py
 python he_thong_phuong_tien.py
+```
+
+### **Cách 3: Luyện tập bài tập**
+```bash
+cd OOP_BaiTap/Cap1_CoBan
+python cap1_01_sinh_vien.py
+
+cd ../Cap2_TrungBinh
+python cap2_01_quan_ly_cua_hang_sach.py
 ```
 
 ---
