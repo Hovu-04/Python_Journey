@@ -94,7 +94,7 @@ Day 1 → Day 2 → Day 3 → Day 4 → Day 5 → Day 6 → On_Tap (Tổng hợp
 **File**: `day_1.py`
 
 **Nội dung chính**:
-- Tạo class `Product` 
+- Tạo class `Product`
 - Khởi tạo object với `__init__`
 - Định nghĩa instance attributes
 - Tạo method cơ bản: `display_info()`, `sell()`
@@ -107,7 +107,7 @@ class Product:
         self.name = name
         self._price = price           # chuẩn bị encapsulation
         self._stock_quantity = stock_quantity
-    
+
     def sell(self, quantity):
         # Xử lý bán hàng
         pass
@@ -135,13 +135,13 @@ class Product:
     @property
     def price(self):
         return self._price
-    
+
     @price.setter
     def price(self, value):
         if value < 0:
             raise ValueError("Giá không hợp lệ!")
         self._price = value
-    
+
     def update_stock(self, quantity_change):
         new_quantity = self.stock_quantity + quantity_change
         if new_quantity < 0:
@@ -171,13 +171,13 @@ class Book:
     @property
     def page_count(self):
         return self._page_count
-    
+
     @page_count.setter
     def page_count(self, value):
         if not isinstance(value, int) or value <= 0:
             raise ValueError("Số trang phải > 0")
         self._page_count = value
-    
+
     def add_pages(self, extra_pages):
         self.page_count = self.page_count + extra_pages
 ```
@@ -204,7 +204,7 @@ class Account:
     def __init__(self, owner, balance):
         self.owner = owner
         self.balance = balance
-    
+
     def withdraw(self, amount):
         self.balance -= amount
 
@@ -212,7 +212,7 @@ class SavingsAccount(Account):
     def __init__(self, owner, balance, interest_rate):
         super().__init__(owner, balance)
         self.interest_rate = interest_rate
-    
+
     def add_monthly_interest(self):
         interest = self.balance * self.interest_rate / 100
         self.balance += interest
@@ -255,7 +255,7 @@ class SavingsAccount(BankAccount):
 
 class CheckingAccount(BankAccount):
     OVERDRAFT_LIMIT = -500  # Class variable
-    
+
     def withdraw(self, amount):
         new_balance = self._balance - amount
         if new_balance < self.OVERDRAFT_LIMIT:
@@ -289,7 +289,7 @@ class PhuongTienThue(ABC):
     @abstractmethod
     def tinh_chi_phi_phu(self):
         pass
-    
+
     def tinh_tong_tien(self):
         tien_co_ban = self.gia_co_ban_ngay * self.so_ngay_thue
         chi_phi_phu = self.tinh_chi_phi_phu()  # gọi method con
@@ -587,7 +587,7 @@ class Base(ABC):
     @abstractmethod
     def method(self):
         pass
-    
+
 # ❌ Base() → TypeError
 # ✅ class Child(Base): pass → OK
 ```
