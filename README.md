@@ -55,6 +55,34 @@ Day 1 → Day 2 → Day 3 → Day 4 → Day 5 → Day 6 → On_Tap (Tổng hợp
 │   ├── 04_quan_ly_nhan_vien_crud.py # Employee CRUD: Full Management System
 │   └── 05_xe_dap.py                # Bicycle System: OOP Design Pattern
 │
+├── 📁 05_Level_Up/                  # 🎯 Nâng cao: Project thực tế
+│   ├── main.py                      # Application entry point
+│   ├── test_seed.py                 # Seed data cho testing
+│   ├── data/
+│   │   └── student.json             # Database JSON
+│   ├── logs/                        # Application logs
+│   ├── models/
+│   │   └── student.py               # Student data model
+│   ├── repository/
+│   │   └── student_repository.py    # Data access layer (DAO pattern)
+│   ├── services/
+│   │   └── student_service.py       # Business logic layer
+│   └── utils/
+│       └── logger.py                # Logging utility
+│
+├── 📁 06_FastAPI_Backend/           # 🚀 Backend API Development
+│   ├── 01_Basics_API/
+│   │   ├── CRUD-Customers/
+│   │   │   └── main.py              # CRUD operations example
+│   │   └── Learning-FastAPI/
+│   │       ├── main.py              # FastAPI basics
+│   │       ├── README.md
+│   │       └── requirements.txt
+│   ├── 02_CRUD/                     # Advanced CRUD operations
+│   ├── 03_Validation/               # Input validation
+│   ├── 04_Auth/                     # Authentication & Authorization
+│   └── 05_Project_CRM/              # CRM project
+│
 └── README.md                        # 📖 Hướng dẫn này
 ```
 
@@ -289,6 +317,108 @@ for xe in danh_sach_xe:
 
 ---
 
+## 🎯 Level 5: Kiến trúc Project Thực Tế (05_Level_Up)
+
+**Mục đích**: Ứng dụng OOP vào một dự án thực tế với kiến trúc lớp
+
+### Cấu trúc thư mục
+
+```
+05_Level_Up/
+├── main.py                          # Entry point của ứng dụng
+├── test_seed.py                     # Dữ liệu mẫu cho testing
+├── data/
+│   └── student.json                 # Database (JSON format)
+├── models/
+│   └── student.py                   # Model Student (data class)
+├── repository/
+│   └── student_repository.py        # DAO pattern - xử lý DB
+├── services/
+│   └── student_service.py           # Business logic layer
+└── utils/
+    └── logger.py                    # Logging utility
+```
+
+### Kiến trúc 3-Layer
+
+1. **Models** (`student.py`): Định nghĩa cấu trúc dữ liệu
+   - Student class với validation
+
+2. **Repository** (`student_repository.py`): Data Access Object (DAO)
+   - `create()`, `read()`, `update()`, `delete()`
+   - Quản lý JSON file
+
+3. **Services** (`student_service.py`): Business Logic
+   - Xử lý logic phức tạp
+   - Validation dữ liệu
+
+4. **Main** (`main.py`): Presentation Layer
+   - Menu CLI
+   - Gọi service methods
+
+### Concepts Được Áp Dụng
+
+- ✅ Encapsulation: Private attributes với @property
+- ✅ Repository Pattern: Tách database từ business logic
+- ✅ Service Layer: Xử lý validation & business rules
+- ✅ Logging: Ghi log hoạt động
+- ✅ JSON File I/O: Lưu trữ dữ liệu
+
+---
+
+## 🚀 Level 6: FastAPI Backend (06_FastAPI_Backend)
+
+**Mục đích**: Từ OOP lên Backend Web Development
+
+### 📚 01_Basics_API/
+
+#### Learning-FastAPI/
+- Học cơ bản FastAPI
+- Tạo route cơ bản
+- Request/Response handling
+
+**Ví dụ**:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def read_root():
+    return {"message": "Hello World"}
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    return {"item_id": item_id}
+```
+
+#### CRUD-Customers/
+- CRUD operations (Create, Read, Update, Delete)
+- In-memory database
+- API endpoints cho Customer management
+
+### 📊 02_CRUD/
+- Advanced CRUD operations
+- Database integration
+- Error handling
+
+### ✅ 03_Validation/
+- Pydantic models
+- Input validation
+- Type checking
+
+### 🔐 04_Auth/
+- Authentication (JWT)
+- Authorization
+- User management
+
+### 🎯 05_Project_CRM/
+- Customer Relationship Management system
+- Full-stack application
+- Integrates tất cả concepts trước
+
+---
+
 ## 📝 Phần Luyện Tập: On_Tap
 
 **Mục đích**: Tổng hợp & ứng dụng toàn bộ kiến thức từ Day 1-6
@@ -330,7 +460,7 @@ for xe in danh_sach_xe:
 
 ## 🎓 Những Concept Được Học
 
-| Tuần | Concept | File |
+| Mục | Concept | File/Folder |
 |------|---------|------|
 | 1 | Class & Object | day_1.py |
 | 2 | Encapsulation | day_2.py |
@@ -338,41 +468,83 @@ for xe in danh_sach_xe:
 | 4 | Inheritance | day_4.py |
 | 5 | Template Method | day_5.py |
 | 6 | Polymorphism & ABC | day_6.py |
-| Ôn | Tổng hợp | On_Tap/ |
-| BT | Bài tập | OOP_BaiTap/ |
+| Ôn | Tổng hợp OOP | 04_Practice/ |
+| 5️⃣ | Architecture Pattern | 05_Level_Up/ |
+| 6️⃣ | FastAPI Backend | 06_FastAPI_Backend/ |
 
 ---
 
 ## 💡 Cách Học
 
-### **Cách 1: Follow từng ngày**
+### **Cách 1: Follow từng ngày (Basics → OOP)**
 ```bash
-# Day 1
-python day_1.py
-
-# Day 2
-python day_2.py
-
+# Day 1-6
+python 01_Basics/day_1.py
+python 01_Basics/day_2.py
 # ... tiếp tục đến Day 6
-python day_6.py
+python 01_Basics/day_6.py
 ```
 
-### **Cách 2: Ôn luyện toàn bộ**
+### **Cách 2: Luyện tập bài tập theo cấp độ**
 ```bash
-cd On_Tap
-python test.py
-python ngan_hang_ke_thua.py
-python he_thong_phuong_tien.py
+cd 02_OOP_Basics
+python 01_sinh_vien.py
+python 02_hinh_chu_nhat.py
+
+cd ../03_OOP_Intermediate
+python 01_quan_ly_cua_hang_sach.py
 ```
 
-### **Cách 3: Luyện tập bài tập**
+### **Cách 3: Ôn luyện toàn bộ OOP**
 ```bash
-cd OOP_BaiTap/Cap1_CoBan
-python cap1_01_sinh_vien.py
-
-cd ../Cap2_TrungBinh
-python cap2_01_quan_ly_cua_hang_sach.py
+cd 04_Practice
+python 01_he_thong_phuong_tien.py
+python 04_quan_ly_nhan_vien_crud.py
 ```
+
+### **Cách 4: Kiến trúc thực tế (Level 5)**
+```bash
+cd 05_Level_Up
+python main.py  # Chạy ứng dụng student management
+python test_seed.py  # Tạo dữ liệu mẫu
+```
+
+### **Cách 5: Backend Development (Level 6)**
+```bash
+cd 06_FastAPI_Backend/01_Basics_API/Learning-FastAPI
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+### **Cách 6: Hoàn chỉnh từng level**
+```
+Level 1 (Day 1-3): Basics + Encapsulation
+    ↓
+Level 2 (Day 4-6): Inheritance + Polymorphism
+    ↓
+Level 3 (02_OOP_Basics): OOP Basics practice
+    ↓
+Level 4 (03_OOP_Intermediate): OOP Intermediate practice
+    ↓
+Level 5 (04_Practice): OOP Consolidation
+    ↓
+Level 6 (05_Level_Up): Real-world architecture
+    ↓
+Level 7 (06_FastAPI_Backend): Backend API Development
+```
+
+---
+
+## 📚 Chi tiết từng Level
+
+| Level | Tên | Mục tiêu | Concepts |
+|-------|-----|----------|----------|
+| **1** | Basics | Nắm vững Python cơ bản | Class, Object, Attributes |
+| **2** | OOP Basics | Hiểu Encapsulation | @property, Validation |
+| **3** | OOP Intermediate | Inheritance + Polymorphism | Super(), Override |
+| **4** | Practice | Tổng hợp toàn bộ | Combined Patterns |
+| **5** | Level Up | Kiến trúc thực tế | 3-Layer Architecture, Repository Pattern |
+| **6** | FastAPI | Backend Development | REST API, CRUD, Authentication |
 
 ---
 
